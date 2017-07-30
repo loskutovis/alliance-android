@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/categories_layout"
+    style="@style/Layout"
+    tools:context="is.loskutov.alliance.activities.CategoryActivity">
+
+    <Button
+        android:id="@+id/back_button"
+        style="@style/Button.GreenButton"
+        android:text="@string/back"/>
+</LinearLayout>

@@ -1,38 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:background="@color/colorPrimary"
-    tools:context="is.loskutov.alliance.MainActivity">
+    style="@style/Layout"
+    tools:context="is.loskutov.alliance.activities.MainActivity">
 
     <ImageView
-        android:src="@drawable/logo"
-        android:layout_width="120dp"
-        android:layout_height="115dp"
-        android:layout_gravity="center"
+        style="@style/Logo"
         android:contentDescription="@string/app_name"/>
 
     <Button
-        android:layout_width="240dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:padding="5dp"
+        android:id="@+id/by_categories"
+        style="@style/Button.DarkButton"
         android:layout_marginTop="60dp"
-        android:background="@color/colorPrimaryLight"
-        android:textColor="@color/colorWhite"
         android:text="@string/by_categories"/>
 
     <Button
-        android:layout_width="240dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:padding="5dp"
+        android:id="@+id/by_themes"
+        style="@style/Button.DarkButton"
         android:layout_marginTop="25dp"
-        android:background="@color/colorPrimaryLight"
-        android:textColor="@color/colorWhite"
         android:text="@string/by_themes"/>
 
 </LinearLayout>
