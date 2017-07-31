@@ -11,8 +11,16 @@ import java.lang.reflect.Method;
 
 @SuppressWarnings (value = "unchecked")
 public class Api<T, Q> {
+    private static ApiResult delegate = null;
     private static final String API_URL = "http://al-74.ru/api/";
-    private ArrayMap<T, Q> response;
+
+    private Api() {
+
+    }
+
+    public Api(ApiResult delegate){
+        Api.delegate = delegate;
+    }
 
     public void execute(String methodName) {
         ApiTask task = new ApiTask();
@@ -20,9 +28,8 @@ public class Api<T, Q> {
         task.execute(methodName);
     }
 
-    public void getThemes() throws JSONException {
+    public ArrayMap<Integer, String> getThemes() throws JSONException {
         ArrayMap<Integer, String> themesList = new ArrayMap<>();
-
         String json = Json.getJson(API_URL + "getThemes");
 
         JSONArray themes = new JSONArray(json);
@@ -30,35 +37,37 @@ public class Api<T, Q> {
         for (int i = 0; i < themes.length(); i++) {
             JSONObject theme = themes.getJSONObject(i);
 
-            themesList.put(Integer.parseInt(theme.getString("id")), theme.getString("name"));
+            themesList.put(theme.getInt("id"), theme.getString("name"));
         }
 
-        this.response = (ArrayMap<T, Q>) themesList;
+        return themesList;
     }
 
-    private static class ApiTask extends AsyncTask<String, Void, Void> {
+    private class ApiTask extends AsyncTask<String, Void, ArrayMap> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
         }
 
         @Override
-        protected Void doInBackground(String... methodName) {
+        protected ArrayMap<T, Q> doInBackground(String... methodName) {
             try {
                 Method method = Api.class.getDeclaredMethod(methodName[0]);
 
-                method.invoke(Api.class);
+                return (ArrayMap<T, Q>) method.invoke(new Api());
             }
             catch (Exception ex) {
                 ex.printStackTrace();
-            }
 
-            return null;
+                return null;
+            }
         }
 
         @Override
-        protected void onPostExecute(Void result) {
+        protected void onPostExecute(ArrayMap result) {
             super.onPostExecute(result);
+
+            delegate.processFinish(result);
         }
     }
 }

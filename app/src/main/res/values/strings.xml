@@ -3,7 +3,9 @@
     <string name="by_categories">По категориям</string>
     <string name="by_themes">По темам</string>
     <string name="back">Назад</string>
-    <string name="category_4">4 разряд</string>
-    <string name="category_5">5 разряд</string>
-    <string name="category_6">6 разряд</string>
+    <string-array name="categories">
+        <item>4 разряд</item>
+        <item>5 разряд</item>
+        <item>6 разряд</item>
+    </string-array>
 </resources>

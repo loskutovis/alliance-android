@@ -2,7 +2,7 @@
 <resources>
     <dimen name="button_width">240dp</dimen>
     <dimen name="button_padding">5dp</dimen>
-    <dimen name="button_margin_bottom">25dp</dimen>
+    <dimen name="button_margin_bottom">15dp</dimen>
     <dimen name="logo_width">120dp</dimen>
     <dimen name="logo_height">115dp</dimen>
 </resources>

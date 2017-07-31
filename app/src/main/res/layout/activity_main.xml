@@ -17,7 +17,7 @@
     <Button
         android:id="@+id/by_themes"
         style="@style/Button.DarkButton"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="@dimen/button_margin_bottom"
         android:text="@string/by_themes"/>
 
 </LinearLayout>

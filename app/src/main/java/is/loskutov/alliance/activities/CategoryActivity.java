@@ -3,18 +3,23 @@ package is.loskutov.alliance.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.util.ArrayMap;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import is.loskutov.alliance.R;
 import is.loskutov.alliance.system.Api;
+import is.loskutov.alliance.system.ApiResult;
 
-public class CategoryActivity extends AppCompatActivity {
+public class CategoryActivity extends AppCompatActivity implements ApiResult {
     protected Button backButton;
     protected LinearLayout categoriesLayout;
+    protected ListView buttonsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +32,7 @@ public class CategoryActivity extends AppCompatActivity {
     protected void setViews() {
         backButton = (Button) findViewById(R.id.back_button);
         categoriesLayout = (LinearLayout) findViewById(R.id.categories_layout);
+        buttonsList = (ListView) findViewById(R.id.buttons_list);
 
         Intent intent = getIntent();
 
@@ -34,17 +40,13 @@ public class CategoryActivity extends AppCompatActivity {
 
         switch (type) {
             case MainActivity.CATEGORIES:
-                Button button4 = new Button(this);
-                Button button5 = new Button(this);
-                Button button6 = new Button(this);
+                String[] buttons = getResources().getStringArray(R.array.categories);
 
-                setButtonStyle(button4, R.string.category_6);
-                setButtonStyle(button5, R.string.category_5);
-                setButtonStyle(button6, R.string.category_4);
+                setButtonsList(buttons);
 
                 break;
             case MainActivity.THEMES:
-                Api api = new Api<Integer, String>();
+                Api api = new Api<Integer, String>(this);
 
                 api.execute("getThemes");
 
@@ -65,20 +67,21 @@ public class CategoryActivity extends AppCompatActivity {
         });
     }
 
-    private void setButtonStyle(Button button, int text) {
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int)getResources().getDimension(
-                R.dimen.button_width), ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.setMargins(0, 0, 0, (int) getResources().getDimension(
-                R.dimen.button_margin_bottom));
+    @Override
+    public void processFinish(ArrayMap output) {
+        String[] buttons = new String[output.size()];
 
-        int padding = (int) getResources().getDimension(
-                R.dimen.button_padding);
+        for (int i = 0; i < output.size(); i++) {
+            buttons[i] = output.valueAt(i).toString();
+        }
 
-        button.setText(text);
-        button.setPadding(padding, padding, padding, padding);
-        button.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimaryLight));
-        button.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
+        setButtonsList(buttons);
+    }
 
-        categoriesLayout.addView(button, 0, params);
+    protected void setButtonsList(String[] buttons) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                R.layout.buttons_list_item, buttons);
+
+        buttonsList.setAdapter(adapter);
     }
 }
