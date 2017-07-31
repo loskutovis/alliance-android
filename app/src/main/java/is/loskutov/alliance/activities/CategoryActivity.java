@@ -9,9 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import org.json.JSONObject;
-
 import is.loskutov.alliance.R;
+import is.loskutov.alliance.system.Api;
 
 public class CategoryActivity extends AppCompatActivity {
     protected Button backButton;
@@ -45,6 +44,9 @@ public class CategoryActivity extends AppCompatActivity {
 
                 break;
             case MainActivity.THEMES:
+                Api api = new Api<Integer, String>();
+
+                api.execute("getThemes");
 
                 break;
         }

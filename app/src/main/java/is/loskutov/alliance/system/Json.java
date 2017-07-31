@@ -7,7 +7,7 @@ import java.net.URL;
 
 class Json {
 
-    public static String getJson(String url) {
+    static String getJson(String url) {
         HttpURLConnection c = null;
 
         try {
@@ -38,6 +38,8 @@ class Json {
             }
 
         } catch (Exception ex) {
+            ex.printStackTrace();
+
             if (c != null) {
                 c.disconnect();
             }
