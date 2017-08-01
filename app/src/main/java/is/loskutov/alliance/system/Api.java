@@ -1,16 +1,18 @@
 package is.loskutov.alliance.system;
 
 import android.os.AsyncTask;
-import android.support.v4.util.ArrayMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+
+import is.loskutov.alliance.models.Themes;
 
 @SuppressWarnings (value = "unchecked")
-public class Api<T, Q> {
+public class Api<T> {
     private static ApiResult delegate = null;
     private static final String API_URL = "http://al-74.ru/api/";
 
@@ -28,33 +30,41 @@ public class Api<T, Q> {
         task.execute(methodName);
     }
 
-    public ArrayMap<Integer, String> getThemes() throws JSONException {
-        ArrayMap<Integer, String> themesList = new ArrayMap<>();
+    public ArrayList<Themes> getThemes() throws JSONException {
+        ArrayList<Themes> themesList = new ArrayList<>();
         String json = Json.getJson(API_URL + "getThemes");
 
         JSONArray themes = new JSONArray(json);
 
         for (int i = 0; i < themes.length(); i++) {
-            JSONObject theme = themes.getJSONObject(i);
-
-            themesList.put(theme.getInt("id"), theme.getString("name"));
+            themesList.add(new Themes(themes.getJSONObject(i)));
         }
 
         return themesList;
     }
 
-    private class ApiTask extends AsyncTask<String, Void, ArrayMap> {
+    public void getQuestions(String type, int category) throws JSONException {
+        String json = Json.getJson(API_URL + "getQuestions?type=" + type + "&category=" + category);
+
+        JSONArray testing = new JSONArray(json);
+
+        for (int i = 0; i < testing.length(); i++) {
+            JSONObject questions = testing.getJSONObject(i);
+        }
+    }
+
+    private class ApiTask extends AsyncTask<String, Void, ArrayList> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
         }
 
         @Override
-        protected ArrayMap<T, Q> doInBackground(String... methodName) {
+        protected ArrayList<T> doInBackground(String... methodName) {
             try {
                 Method method = Api.class.getDeclaredMethod(methodName[0]);
 
-                return (ArrayMap<T, Q>) method.invoke(new Api());
+                return (ArrayList<T>) method.invoke(new Api());
             }
             catch (Exception ex) {
                 ex.printStackTrace();
@@ -64,7 +74,7 @@ public class Api<T, Q> {
         }
 
         @Override
-        protected void onPostExecute(ArrayMap result) {
+        protected void onPostExecute(ArrayList result) {
             super.onPostExecute(result);
 
             delegate.processFinish(result);

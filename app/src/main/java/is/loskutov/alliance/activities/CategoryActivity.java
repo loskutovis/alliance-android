@@ -2,24 +2,25 @@ package is.loskutov.alliance.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.util.ArrayMap;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
+
+import java.util.ArrayList;
 
 import is.loskutov.alliance.R;
+import is.loskutov.alliance.models.Themes;
 import is.loskutov.alliance.system.Api;
 import is.loskutov.alliance.system.ApiResult;
+import is.loskutov.alliance.system.CategoryAdapter;
 
 public class CategoryActivity extends AppCompatActivity implements ApiResult {
     protected Button backButton;
     protected LinearLayout categoriesLayout;
-    protected ListView buttonsList;
+    protected RecyclerView buttonsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,7 @@ public class CategoryActivity extends AppCompatActivity implements ApiResult {
     protected void setViews() {
         backButton = (Button) findViewById(R.id.back_button);
         categoriesLayout = (LinearLayout) findViewById(R.id.categories_layout);
-        buttonsList = (ListView) findViewById(R.id.buttons_list);
+        buttonsList = (RecyclerView) findViewById(R.id.buttons_list);
 
         Intent intent = getIntent();
 
@@ -46,7 +47,7 @@ public class CategoryActivity extends AppCompatActivity implements ApiResult {
 
                 break;
             case MainActivity.THEMES:
-                Api api = new Api<Integer, String>(this);
+                Api api = new Api<>(this);
 
                 api.execute("getThemes");
 
@@ -68,20 +69,23 @@ public class CategoryActivity extends AppCompatActivity implements ApiResult {
     }
 
     @Override
-    public void processFinish(ArrayMap output) {
+    public void processFinish(ArrayList output) {
         String[] buttons = new String[output.size()];
 
         for (int i = 0; i < output.size(); i++) {
-            buttons[i] = output.valueAt(i).toString();
+            Themes theme = (Themes) output.get(i);
+
+            buttons[i] = theme.getName();
         }
 
         setButtonsList(buttons);
     }
 
     protected void setButtonsList(String[] buttons) {
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                R.layout.buttons_list_item, buttons);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        CategoryAdapter adapter = new CategoryAdapter(buttons);
 
+        buttonsList.setLayoutManager(layoutManager);
         buttonsList.setAdapter(adapter);
     }
 }
