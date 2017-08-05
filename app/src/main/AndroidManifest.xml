@@ -12,14 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/MainStyle"
         android:fullBackupContent="@xml/backup_descriptor">
-        <activity android:name=".activities.MainActivity">
+        <activity android:name=".view.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.CategoryActivity"></activity>
+        <activity android:name=".view.activities.CategoryActivity"></activity>
+        <activity android:name=".view.activities.TestingActivity"></activity>
     </application>
 
 </manifest>

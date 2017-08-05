@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/Layout"
-    tools:context="is.loskutov.alliance.activities.MainActivity">
+    tools:context=".view.activities.MainActivity">
 
     <ImageView
         style="@style/Logo"

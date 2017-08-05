@@ -1,4 +1,4 @@
-package is.loskutov.alliance.models;
+package is.loskutov.alliance.model;
 
 import org.json.JSONException;
 import org.json.JSONObject;

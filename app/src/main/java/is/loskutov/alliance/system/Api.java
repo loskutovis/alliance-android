@@ -4,17 +4,19 @@ import android.os.AsyncTask;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
-import is.loskutov.alliance.models.Themes;
+import is.loskutov.alliance.model.Category;
+import is.loskutov.alliance.model.Testing;
+import is.loskutov.alliance.model.Themes;
 
 @SuppressWarnings (value = "unchecked")
 public class Api<T> {
     private static ApiResult delegate = null;
     private static final String API_URL = "http://al-74.ru/api/";
+    public static final int CATEGORIES = 0, THEMES = 1, WEAPON = 2;
 
     private Api() {
 
@@ -30,6 +32,24 @@ public class Api<T> {
         task.execute(methodName);
     }
 
+    private static String getTypeById(int id) {
+        String type = "";
+
+        switch (id) {
+            case CATEGORIES:
+                type = "category";
+                break;
+            case THEMES:
+                type = "theme";
+                break;
+            case WEAPON:
+                type = "weapon";
+                break;
+        }
+
+        return type;
+    }
+
     public ArrayList<Themes> getThemes() throws JSONException {
         ArrayList<Themes> themesList = new ArrayList<>();
         String json = Json.getJson(API_URL + "getThemes");
@@ -43,14 +63,30 @@ public class Api<T> {
         return themesList;
     }
 
-    public void getQuestions(String type, int category) throws JSONException {
-        String json = Json.getJson(API_URL + "getQuestions?type=" + type + "&category=" + category);
+    public ArrayList<Testing> getTesting(Category category) throws JSONException {
+        ArrayList<Testing> testingResult = new ArrayList<>();
+
+        String url = API_URL + "getQuestions?type=" + Api.getTypeById(category.getCategory());
+
+        if (category.getId() != 0) {
+            url +=  "&id=" + category.getId();
+        }
+
+        String json = Json.getJson(url);
 
         JSONArray testing = new JSONArray(json);
 
         for (int i = 0; i < testing.length(); i++) {
-            JSONObject questions = testing.getJSONObject(i);
+            testingResult.add(new Testing(testing.getJSONObject(i)));
         }
+
+        return testingResult;
+    }
+
+    public ArrayList<Testing> getTesting(int type) throws JSONException {
+        Category category = new Category(0, type);
+
+        return getTesting(category);
     }
 
     private class ApiTask extends AsyncTask<String, Void, ArrayList> {
@@ -60,9 +96,9 @@ public class Api<T> {
         }
 
         @Override
-        protected ArrayList<T> doInBackground(String... methodName) {
+        protected ArrayList<T> doInBackground(String... params) {
             try {
-                Method method = Api.class.getDeclaredMethod(methodName[0]);
+                Method method = Api.class.getDeclaredMethod(params[0]);
 
                 return (ArrayList<T>) method.invoke(new Api());
             }

@@ -1,16 +1,15 @@
-package is.loskutov.alliance.activities;
+package is.loskutov.alliance.view.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import is.loskutov.alliance.R;
+import is.loskutov.alliance.system.Api;
 
 public class MainActivity extends AppCompatActivity {
-    public static final int CATEGORIES = 0, THEMES = 1;
     protected Button byCategories, byThemes;
 
     @Override
@@ -33,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         byCategories.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setIntent(CATEGORIES);
+                setIntent(Api.CATEGORIES);
             }
         });
     }
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         byThemes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setIntent(THEMES);
+                setIntent(Api.THEMES);
             }
         });
     }

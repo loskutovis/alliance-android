@@ -1,19 +1,25 @@
 package is.loskutov.alliance.system;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import java.util.ArrayList;
+
 import is.loskutov.alliance.R;
+import is.loskutov.alliance.model.Category;
+import is.loskutov.alliance.view.activities.TestingActivity;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> implements View.OnClickListener {
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
 
-    private String[] data;
+    private ArrayList data;
 
     class ViewHolder extends RecyclerView.ViewHolder {
-
         Button button;
 
         ViewHolder(View itemView) {
@@ -23,7 +29,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         }
     }
 
-    public CategoryAdapter(String[] data) {
+    public CategoryAdapter(ArrayList data) {
         this.data = data;
     }
 
@@ -36,15 +42,25 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(CategoryAdapter.ViewHolder holder, int position) {
-        holder.button.setText(data[position]);
+        final Category category = (Category) data.get(position);
+        holder.button.setText(category.getName());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = v.getContext();
+
+                Intent intent = new Intent(context, TestingActivity.class);
+
+                intent.putExtra("category", (Parcelable) category);
+
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return data.length;
-    }
-
-    @Override
-    public void onClick(View v) {
+        return data.size();
     }
 }

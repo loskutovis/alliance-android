@@ -1,4 +1,4 @@
-package is.loskutov.alliance.activities;
+package is.loskutov.alliance.view.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +12,8 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 
 import is.loskutov.alliance.R;
-import is.loskutov.alliance.models.Themes;
+import is.loskutov.alliance.model.Category;
+import is.loskutov.alliance.model.Themes;
 import is.loskutov.alliance.system.Api;
 import is.loskutov.alliance.system.ApiResult;
 import is.loskutov.alliance.system.CategoryAdapter;
@@ -36,17 +37,21 @@ public class CategoryActivity extends AppCompatActivity implements ApiResult {
         buttonsList = (RecyclerView) findViewById(R.id.buttons_list);
 
         Intent intent = getIntent();
-
-        int type = intent.getIntExtra("type", MainActivity.CATEGORIES);
+        int type = intent.getIntExtra("type", Api.CATEGORIES);
 
         switch (type) {
-            case MainActivity.CATEGORIES:
-                String[] buttons = getResources().getStringArray(R.array.categories);
+            case Api.CATEGORIES:
+                ArrayList<Category> buttons = new ArrayList<>();
+                String[] buttonsArray = getResources().getStringArray(R.array.categories);
+
+                for (int i = 0; i < buttonsArray.length; i++) {
+                    buttons.add(new Category(i, buttonsArray[i], Api.CATEGORIES));
+                }
 
                 setButtonsList(buttons);
 
                 break;
-            case MainActivity.THEMES:
+            case Api.THEMES:
                 Api api = new Api<>(this);
 
                 api.execute("getThemes");
@@ -70,18 +75,18 @@ public class CategoryActivity extends AppCompatActivity implements ApiResult {
 
     @Override
     public void processFinish(ArrayList output) {
-        String[] buttons = new String[output.size()];
+        ArrayList<Category> buttons = new ArrayList<>();
 
         for (int i = 0; i < output.size(); i++) {
             Themes theme = (Themes) output.get(i);
 
-            buttons[i] = theme.getName();
+            buttons.add(new Category(theme.getId(), theme.getName(), Api.THEMES));
         }
 
         setButtonsList(buttons);
     }
 
-    protected void setButtonsList(String[] buttons) {
+    protected void setButtonsList(ArrayList buttons) {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         CategoryAdapter adapter = new CategoryAdapter(buttons);
 
