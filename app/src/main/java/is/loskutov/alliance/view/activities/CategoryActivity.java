@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 
 import is.loskutov.alliance.R;
+import is.loskutov.alliance.model.ApiMethod;
 import is.loskutov.alliance.model.Category;
 import is.loskutov.alliance.model.Themes;
 import is.loskutov.alliance.system.Api;
@@ -45,16 +46,18 @@ public class CategoryActivity extends AppCompatActivity implements ApiResult {
                 String[] buttonsArray = getResources().getStringArray(R.array.categories);
 
                 for (int i = 0; i < buttonsArray.length; i++) {
-                    buttons.add(new Category(i, buttonsArray[i], Api.CATEGORIES));
+                    buttons.add(new Category(i + 4, buttonsArray[i], Api.CATEGORIES));
                 }
 
                 setButtonsList(buttons);
 
                 break;
             case Api.THEMES:
-                Api api = new Api<>(this);
+                Api<Themes, Void> api = new Api<>(this);
 
-                api.execute("getThemes");
+                ApiMethod<Void> method = new ApiMethod<>("getThemes");
+
+                api.execute(method);
 
                 break;
         }

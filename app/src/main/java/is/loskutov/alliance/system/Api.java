@@ -4,16 +4,18 @@ import android.os.AsyncTask;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+import is.loskutov.alliance.model.ApiMethod;
 import is.loskutov.alliance.model.Category;
 import is.loskutov.alliance.model.Testing;
 import is.loskutov.alliance.model.Themes;
 
 @SuppressWarnings (value = "unchecked")
-public class Api<T> {
+public class Api<T, Q> {
     private static ApiResult delegate = null;
     private static final String API_URL = "http://al-74.ru/api/";
     public static final int CATEGORIES = 0, THEMES = 1, WEAPON = 2;
@@ -26,10 +28,10 @@ public class Api<T> {
         Api.delegate = delegate;
     }
 
-    public void execute(String methodName) {
+    public void execute(ApiMethod<Q> method) {
         ApiTask task = new ApiTask();
 
-        task.execute(methodName);
+        task.execute(method);
     }
 
     private static String getTypeById(int id) {
@@ -74,11 +76,9 @@ public class Api<T> {
 
         String json = Json.getJson(url);
 
-        JSONArray testing = new JSONArray(json);
+        JSONObject testing = new JSONObject(json);
 
-        for (int i = 0; i < testing.length(); i++) {
-            testingResult.add(new Testing(testing.getJSONObject(i)));
-        }
+        testingResult.add(new Testing(testing));
 
         return testingResult;
     }
@@ -89,24 +89,39 @@ public class Api<T> {
         return getTesting(category);
     }
 
-    private class ApiTask extends AsyncTask<String, Void, ArrayList> {
+    private class ApiTask extends AsyncTask<ApiMethod, Void, ArrayList> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
         }
 
         @Override
-        protected ArrayList<T> doInBackground(String... params) {
-            try {
-                Method method = Api.class.getDeclaredMethod(params[0]);
+        protected ArrayList<T> doInBackground(ApiMethod... invokeMethod) {
+            ArrayList<T> result;
 
-                return (ArrayList<T>) method.invoke(new Api());
+            try {
+                Method method;
+                Q params = (Q) invokeMethod[0].getMethodParams();
+
+                if (params == null) {
+                    method = Api.class.getDeclaredMethod(invokeMethod[0].getMethodName());
+                    result = (ArrayList<T>) method.invoke(new Api());
+                }
+                else {
+                    Class[] methodParams = new Class[1];
+                    methodParams[0] = params.getClass();
+
+                    method = Api.class.getDeclaredMethod(invokeMethod[0].getMethodName(), methodParams);
+                    result = (ArrayList<T>) method.invoke(new Api(), params);
+                }
             }
             catch (Exception ex) {
                 ex.printStackTrace();
 
-                return null;
+                result = null;
             }
+
+            return result;
         }
 
         @Override

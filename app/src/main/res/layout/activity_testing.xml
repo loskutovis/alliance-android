@@ -1,6 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-</LinearLayout>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        style="@style/Padding"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            style="@style/Header.h1"
+            android:id="@+id/theme" />
+
+        <TextView
+            style="@style/Header.TestingProgress"
+            android:id="@+id/number_of_questions" />
+
+        <TextView
+            style="@style/Question"
+            android:id="@+id/question" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RadioButton
+                style="@style/RadioButton"
+                android:id="@+id/answer1"
+                android:checked="true" />
+
+            <RadioButton
+                style="@style/RadioButton"
+                android:id="@+id/answer2" />
+
+            <RadioButton
+                style="@style/RadioButton"
+                android:id="@+id/answer3" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/next_button"
+            style="@style/Button.GreenButton.NextButton"
+            android:text="@string/submit"/>
+    </LinearLayout>
+</ScrollView>

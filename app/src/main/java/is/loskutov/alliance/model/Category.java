@@ -20,8 +20,8 @@ public class Category implements Parcelable {
 
     private Category(Parcel in) {
         id = in.readInt();
-        category = in.readInt();
         name = in.readString();
+        category = in.readInt();
     }
 
     public static final Creator<Category> CREATOR = new Creator<Category>() {

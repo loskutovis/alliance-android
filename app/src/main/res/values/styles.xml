@@ -13,12 +13,56 @@
         <item name="android:layout_gravity">center</item>
     </style>
 
+    <style name="Padding">
+        <item name="android:paddingLeft">@dimen/button_margin_bottom</item>
+        <item name="android:paddingRight">@dimen/button_margin_bottom</item>
+    </style>
+
     <style name="Layout">
         <item name="android:orientation">vertical</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:gravity">center</item>
         <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <style name="Header">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/header_font_size</item>
+    </style>
+
+    <style name="Header.h1">
+        <item name="android:paddingTop">@dimen/button_margin_bottom</item>
+        <item name="android:paddingBottom">@dimen/button_margin_bottom</item>
+        <item name="android:textSize">@dimen/header_font_size</item>
+    </style>
+
+    <style name="Header.TestingProgress">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/description_font_size</item>
+    </style>
+
+    <style name="Question">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">@dimen/button_margin_bottom</item>
+        <item name="android:paddingBottom">@dimen/button_margin_bottom</item>
+        <item name="android:textSize">@dimen/question_font_size</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="RadioButton">
+        <item name="android:layout_marginTop">@dimen/button_padding</item>
+        <item name="android:layout_marginBottom">@dimen/button_padding</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
     <style name="Button">
@@ -36,5 +80,9 @@
     <style name="Button.GreenButton">
         <item name="android:background">@color/colorAccent</item>
         <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="Button.GreenButton.NextButton">
+        <item name="android:layout_marginTop">@dimen/button_margin_bottom</item>
     </style>
 </resources>

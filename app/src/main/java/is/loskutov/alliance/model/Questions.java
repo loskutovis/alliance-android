@@ -3,12 +3,12 @@ package is.loskutov.alliance.model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-class Questions {
+public class Questions {
     private int id, number, rightAnswer, theme;
     private char category4, category5, category6;
     private String question, answer1, answer2, answer3, category;
 
-    public Questions(JSONObject question) throws JSONException {
+    Questions(JSONObject question) throws JSONException {
         this.id = question.getInt("id");
         this.number = question.getInt("number");
         this.rightAnswer = question.getInt("right_answer");
