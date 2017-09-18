@@ -2,7 +2,10 @@ package is.loskutov.alliance.view.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -17,9 +20,15 @@ import is.loskutov.alliance.system.Api;
 import is.loskutov.alliance.system.ApiResult;
 
 public class TestingActivity extends AppCompatActivity implements ApiResult {
-    int testingProgress = 1;
+    int testingProgress = 0, amount = 0;
+
+    Questions[] questions;
+    Category category;
+    Testing testing;
+
     TextView question, theme, numberOfQuestions;
     RadioButton answer1, answer2, answer3;
+    Button nextButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,26 +47,78 @@ public class TestingActivity extends AppCompatActivity implements ApiResult {
         answer2 = (RadioButton) findViewById(R.id.answer2);
         answer3 = (RadioButton) findViewById(R.id.answer3);
 
+        nextButton = (Button) findViewById(R.id.next_button);
+
         Intent intent = getIntent();
-        Category category = intent.getParcelableExtra("category");
+        category = intent.getParcelableExtra("category");
 
         Api<Testing, Category> api = new Api<>(this);
         ApiMethod<Category> method = new ApiMethod<>("getTesting", category);
 
         api.execute(method);
+
+        getNextQuestion();
+    }
+
+    public void getNextQuestion() {
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (testingProgress < questions.length) {
+                    questions[testingProgress].setUserAnswer(getUserAnswer());
+                    answer1.setChecked(true);
+                    setQuestionFields(++testingProgress);
+                }
+                else {
+                    Intent intent = new Intent();
+
+                    intent.putExtra("questions", (Parcelable[]) questions);
+                    intent.putExtra("category", category);
+                    intent.putExtra("number_of_questions", amount);
+
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     @Override
     public void processFinish(ArrayList output) {
-        Testing testing = (Testing) output.get(0);
-        Questions[] questions = testing.getQuestions();
+        testing = (Testing) output.get(0);
+        amount = testing.getNumberOfQuestions();
+        questions = testing.getQuestions();
 
         theme.setText(testing.getTheme());
-        numberOfQuestions.setText(String.valueOf(testingProgress) + ' ' + getResources().getString(R.string.of) + ' ' +
-                String.valueOf(testing.getNumberOfQuestions()));
-        question.setText(questions[0].getQuestion());
-        answer1.setText(questions[0].getAnswer1());
-        answer2.setText(questions[0].getAnswer2());
-        answer3.setText(questions[0].getAnswer3());
+        setQuestionFields(testingProgress);
+    }
+
+    public void setQuestionFields(int number) {
+        numberOfQuestions.setText(String.valueOf(testingProgress + 1) + ' ' + getResources().getString(R.string.of) + ' ' +
+                String.valueOf(amount));
+        question.setText(questions[number].getQuestion());
+        answer1.setText(questions[number].getAnswer1());
+        answer2.setText(questions[number].getAnswer2());
+        answer3.setText(questions[number].getAnswer3());
+    }
+
+    public String getUserAnswer() {
+        String userAnswer = "";
+        RadioButton checkedAnswer = null;
+
+        if (answer1.isChecked()) {
+            checkedAnswer = answer1;
+        }
+        else if (answer2.isChecked()) {
+            checkedAnswer = answer2;
+        }
+        else if (answer3.isChecked()) {
+            checkedAnswer = answer3;
+        }
+
+        if (checkedAnswer != null) {
+            userAnswer = (String) checkedAnswer.getText();
+        }
+
+        return userAnswer;
     }
 }

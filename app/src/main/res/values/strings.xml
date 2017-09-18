@@ -4,6 +4,7 @@
     <string name="by_themes">По темам</string>
     <string name="back">Назад</string>
     <string name="submit">Продолжить</string>
+    <string name="start_again">Начать заново</string>
     <string name="of">из</string>
     <string-array name="categories">
         <item>4 разряд</item>

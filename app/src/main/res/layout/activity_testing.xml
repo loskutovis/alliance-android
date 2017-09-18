@@ -9,6 +9,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TextView
             style="@style/Header.h1"
             android:id="@+id/theme" />
@@ -24,6 +25,7 @@
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <RadioButton
                 style="@style/RadioButton"
                 android:id="@+id/answer1"
@@ -36,11 +38,14 @@
             <RadioButton
                 style="@style/RadioButton"
                 android:id="@+id/answer3" />
+
         </RadioGroup>
 
         <Button
             android:id="@+id/next_button"
             style="@style/Button.GreenButton.NextButton"
             android:text="@string/submit"/>
+
     </LinearLayout>
+
 </ScrollView>
