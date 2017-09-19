@@ -64,13 +64,13 @@ public class TestingActivity extends AppCompatActivity implements ApiResult {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (testingProgress < questions.length) {
+                if (testingProgress < questions.length - 1) {
                     questions[testingProgress].setUserAnswer(getUserAnswer());
                     answer1.setChecked(true);
                     setQuestionFields(++testingProgress);
                 }
                 else {
-                    Intent intent = new Intent();
+                    Intent intent = new Intent(TestingActivity.this, ResultActivity.class);
 
                     intent.putExtra("questions", (Parcelable[]) questions);
                     intent.putExtra("category", category);
