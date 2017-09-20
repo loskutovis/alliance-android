@@ -30,15 +30,14 @@ public class Questions implements Parcelable {
 
     private Questions(Parcel in) {
         id = in.readInt();
-        number = in.readInt();
         rightAnswer = in.readInt();
         theme = in.readInt();
-        question = in.readString();
+        category = in.readString();
         answer1 = in.readString();
         answer2 = in.readString();
         answer3 = in.readString();
-        category = in.readString();
         userAnswer = in.readString();
+        question = in.readString();
     }
 
     public static final Creator<Questions> CREATOR = new Creator<Questions>() {
@@ -61,7 +60,7 @@ public class Questions implements Parcelable {
         return id;
     }
 
-    public int getNumber() {
+    private int getNumber() {
         return number;
     }
 
@@ -101,7 +100,7 @@ public class Questions implements Parcelable {
         return answer3;
     }
 
-    public String getCategory() {
+    private String getCategory() {
         return category;
     }
 
@@ -117,7 +116,6 @@ public class Questions implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.getId());
-        dest.writeInt(this.getNumber());
         dest.writeInt(this.getRightAnswer());
         dest.writeInt(this.getTheme());
         dest.writeString(this.getCategory());

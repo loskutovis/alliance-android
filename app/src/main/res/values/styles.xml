@@ -58,6 +58,15 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="Answer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">@dimen/button_margin_bottom</item>
+        <item name="android:paddingBottom">@dimen/button_margin_bottom</item>
+        <item name="android:textSize">@dimen/question_font_size</item>
+        <item name="android:textColor">@android:color/tertiary_text_dark</item>
+    </style>
+
     <style name="RadioButton">
         <item name="android:layout_marginTop">@dimen/button_padding</item>
         <item name="android:layout_marginBottom">@dimen/button_padding</item>
