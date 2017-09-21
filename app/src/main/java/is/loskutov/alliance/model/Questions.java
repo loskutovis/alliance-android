@@ -108,6 +108,10 @@ public class Questions implements Parcelable {
         return userAnswer;
     }
 
+    public void setQuestionNumber(int number) {
+        this.question = String.valueOf(number) + ". " + this.question;
+    }
+
     @Override
     public int describeContents() {
         return 0;

@@ -38,7 +38,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
     public ResultAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.result_list_item, parent, false);
 
-        return new ResultAdapter.ViewHolder(v);
+        return new ViewHolder(v);
     }
 
     @Override
@@ -47,24 +47,15 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         int rightAnswer = question.getRightAnswer();
 
         String userAnswer = question.getUserAnswer();
-        String answer1 = question.getAnswer1();
-        String answer2 = question.getAnswer2();
-        String answer3 = question.getAnswer3();
 
         holder.question.setText(question.getQuestion());
         holder.answer1.setText(question.getAnswer1());
         holder.answer2.setText(question.getAnswer2());
         holder.answer3.setText(question.getAnswer3());
 
-        if (answer1.contentEquals(userAnswer)) {
-            highlightAnswer(holder.answer1, 1, rightAnswer);
-        }
-        else if (answer2.contentEquals(userAnswer)) {
-            highlightAnswer(holder.answer2, 2, rightAnswer);
-        }
-        else if (answer3.contentEquals(userAnswer)) {
-            highlightAnswer(holder.answer3, 3, rightAnswer);
-        }
+        highlightAnswer(holder.answer1, 1, rightAnswer, userAnswer);
+        highlightAnswer(holder.answer2, 2, rightAnswer, userAnswer);
+        highlightAnswer(holder.answer3, 3, rightAnswer, userAnswer);
     }
 
     @Override
@@ -72,11 +63,11 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         return data.length;
     }
 
-    private void highlightAnswer(TextView answer, int number, int rightAnswer) {
+    private void highlightAnswer(TextView answer, int number, int rightAnswer, String userAnswer) {
         if (rightAnswer == number) {
             answer.setTextColor(ContextCompat.getColor(context, R.color.colorGreen));
         }
-        else {
+        else if (answer.getText().toString().contentEquals(userAnswer)) {
             answer.setTextColor(ContextCompat.getColor(context, R.color.colorRed));
         }
     }

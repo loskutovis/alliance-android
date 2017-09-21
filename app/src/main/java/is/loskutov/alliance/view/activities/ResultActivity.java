@@ -31,11 +31,14 @@ public class ResultActivity extends AppCompatActivity {
         results = (RecyclerView) findViewById(R.id.result_list);
 
         Intent intent = getIntent();
+        int amount = intent.getIntExtra("amount", 0);
+        int correctAnswers = intent.getIntExtra("correct_answers", 0);
         Parcelable[] parcelableQuestions = intent.getParcelableArrayExtra("questions");
         Questions[] questions = new Questions[parcelableQuestions.length];
 
         for (int i = 0; i < questions.length; i++) {
             questions[i] = (Questions) parcelableQuestions[i];
+            questions[i].setQuestionNumber(i+1);
         }
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);

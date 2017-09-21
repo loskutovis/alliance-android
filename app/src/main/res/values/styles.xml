@@ -18,6 +18,14 @@
         <item name="android:paddingRight">@dimen/button_margin_bottom</item>
     </style>
 
+    <style name="QuestionContainer">
+        <item name="android:background">@drawable/border</item>
+        <item name="android:padding">@dimen/button_padding</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
     <style name="Layout">
         <item name="android:orientation">vertical</item>
         <item name="android:layout_width">match_parent</item>
@@ -61,8 +69,7 @@
     <style name="Answer">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingTop">@dimen/button_margin_bottom</item>
-        <item name="android:paddingBottom">@dimen/button_margin_bottom</item>
+        <item name="android:paddingBottom">@dimen/button_padding</item>
         <item name="android:textSize">@dimen/question_font_size</item>
         <item name="android:textColor">@android:color/tertiary_text_dark</item>
     </style>

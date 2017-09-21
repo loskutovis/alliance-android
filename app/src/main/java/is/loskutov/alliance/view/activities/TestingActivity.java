@@ -20,7 +20,7 @@ import is.loskutov.alliance.system.Api;
 import is.loskutov.alliance.system.ApiResult;
 
 public class TestingActivity extends AppCompatActivity implements ApiResult {
-    int testingProgress = 0, amount = 0;
+    int testingProgress = 0, amount = 0, correctAnswers = 0;
 
     Questions[] questions;
     Category category;
@@ -64,17 +64,20 @@ public class TestingActivity extends AppCompatActivity implements ApiResult {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (testingProgress < questions.length - 1) {
-                    questions[testingProgress].setUserAnswer(getUserAnswer());
-                    answer1.setChecked(true);
-                    setQuestionFields(++testingProgress);
+                questions[testingProgress].setUserAnswer(getUserAnswer(testingProgress));
+                testingProgress++;
+
+                if (testingProgress < questions.length) {
+                        answer1.setChecked(true);
+                        setQuestionFields(testingProgress);
                 }
                 else {
                     Intent intent = new Intent(TestingActivity.this, ResultActivity.class);
 
                     intent.putExtra("questions", (Parcelable[]) questions);
-                    intent.putExtra("category", category);
+                    intent.putExtra("theme", testing.getTheme());
                     intent.putExtra("number_of_questions", amount);
+                    intent.putExtra("correct_answers", correctAnswers);
 
                     startActivity(intent);
                 }
@@ -101,21 +104,29 @@ public class TestingActivity extends AppCompatActivity implements ApiResult {
         answer3.setText(questions[number].getAnswer3());
     }
 
-    public String getUserAnswer() {
+    public String getUserAnswer(int number) {
+        int answerOrder = 0;
         String userAnswer = "";
         RadioButton checkedAnswer = null;
 
         if (answer1.isChecked()) {
             checkedAnswer = answer1;
+            answerOrder = 1;
         }
         else if (answer2.isChecked()) {
             checkedAnswer = answer2;
+            answerOrder = 2;
         }
         else if (answer3.isChecked()) {
             checkedAnswer = answer3;
+            answerOrder = 3;
         }
 
         if (checkedAnswer != null) {
+            if (questions[number].getRightAnswer() == answerOrder) {
+                correctAnswers++;
+            }
+
             userAnswer = (String) checkedAnswer.getText();
         }
 
