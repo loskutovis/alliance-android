@@ -13,6 +13,14 @@
         <item name="android:layout_gravity">center</item>
     </style>
 
+    <style name="Loading">
+        <item name="android:visibility">gone</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:src">@drawable/loading</item>
+        <item name="android:layout_width">@dimen/logo_width</item>
+        <item name="android:layout_height">@dimen/logo_height</item>
+    </style>
+
     <style name="Padding">
         <item name="android:paddingLeft">@dimen/button_margin_bottom</item>
         <item name="android:paddingRight">@dimen/button_margin_bottom</item>
@@ -74,6 +82,20 @@
         <item name="android:textColor">@android:color/tertiary_text_dark</item>
     </style>
 
+    <style name="TestingContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="TestingResult">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="RadioButton">
         <item name="android:layout_marginTop">@dimen/button_padding</item>
         <item name="android:layout_marginBottom">@dimen/button_padding</item>
@@ -91,6 +113,13 @@
     <style name="Button.DarkButton">
         <item name="android:background">@color/colorPrimaryLight</item>
         <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="Button.CancelButton">
+        <item name="android:visibility">gone</item>
+        <item name="android:layout_marginTop">@dimen/button_margin_bottom</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:background">@color/colorRed</item>
     </style>
 
     <style name="Button.GreenButton">

@@ -6,6 +6,8 @@ import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -27,8 +29,10 @@ public class TestingActivity extends AppCompatActivity implements ApiResult {
     Testing testing;
 
     TextView question, theme, numberOfQuestions;
+    ImageView loading;
     RadioButton answer1, answer2, answer3;
-    Button nextButton;
+    Button nextButton, cancelButton;
+    LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,22 +46,31 @@ public class TestingActivity extends AppCompatActivity implements ApiResult {
         theme = (TextView) findViewById(R.id.theme);
         numberOfQuestions = (TextView) findViewById(R.id.number_of_questions);
         question = (TextView) findViewById(R.id.question);
+        loading = (ImageView) findViewById(R.id.loading);
+        linearLayout = (LinearLayout) findViewById(R.id.testing_container);
 
         answer1 = (RadioButton) findViewById(R.id.answer1);
         answer2 = (RadioButton) findViewById(R.id.answer2);
         answer3 = (RadioButton) findViewById(R.id.answer3);
 
         nextButton = (Button) findViewById(R.id.next_button);
+        cancelButton = (Button) findViewById(R.id.cancel_button);
 
         Intent intent = getIntent();
         category = intent.getParcelableExtra("category");
+
+        if (category.getCategory() == Api.THEMES) {
+            cancelButton.setVisibility(View.VISIBLE);
+        }
 
         Api<Testing, Category> api = new Api<>(this);
         ApiMethod<Category> method = new ApiMethod<>("getTesting", category);
 
         api.execute(method);
+        loading.setVisibility(View.VISIBLE);
 
         getNextQuestion();
+        cancelTesting();
     }
 
     public void getNextQuestion() {
@@ -72,17 +85,39 @@ public class TestingActivity extends AppCompatActivity implements ApiResult {
                         setQuestionFields(testingProgress);
                 }
                 else {
-                    Intent intent = new Intent(TestingActivity.this, ResultActivity.class);
-
-                    intent.putExtra("questions", (Parcelable[]) questions);
-                    intent.putExtra("theme", testing.getTheme());
-                    intent.putExtra("number_of_questions", amount);
-                    intent.putExtra("correct_answers", correctAnswers);
-
-                    startActivity(intent);
+                    completeTesting(questions);
                 }
             }
         });
+    }
+
+    public void cancelTesting() {
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<Questions> answeredQuestions = new ArrayList<>();
+
+                for (Questions question: questions) {
+                    if (question.getUserAnswer() != null) {
+                        answeredQuestions.add(question);
+                    }
+                }
+
+                completeTesting(answeredQuestions.toArray(new Questions[answeredQuestions.size()]));
+            }
+        });
+    }
+
+    private void completeTesting(Questions[] questions) {
+        Intent intent = new Intent(TestingActivity.this, ResultActivity.class);
+
+        intent.putExtra("questions", (Parcelable[]) questions);
+        intent.putExtra("category", (Parcelable) category);
+        intent.putExtra("number_of_questions", amount);
+        intent.putExtra("theme", testing.getTheme());
+        intent.putExtra("correct_answers", correctAnswers);
+
+        startActivity(intent);
     }
 
     @Override
@@ -92,6 +127,10 @@ public class TestingActivity extends AppCompatActivity implements ApiResult {
         questions = testing.getQuestions();
 
         theme.setText(testing.getTheme());
+
+        loading.setVisibility(View.GONE);
+        linearLayout.setVisibility(View.VISIBLE);
+
         setQuestionFields(testingProgress);
     }
 

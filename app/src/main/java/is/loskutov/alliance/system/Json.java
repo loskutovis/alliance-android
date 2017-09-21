@@ -39,10 +39,10 @@ class Json {
 
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
 
-            if (c != null) {
-                c.disconnect();
-            }
+        if (c != null) {
+            c.disconnect();
         }
 
         return null;

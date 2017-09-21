@@ -5,6 +5,11 @@
     style="@style/Layout"
     tools:context=".view.activities.CategoryActivity">
 
+    <ImageView
+        android:id="@+id/loading"
+        style="@style/Loading"
+        android:contentDescription="@string/loading" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/buttons_list"
         android:layout_width="@dimen/button_width"

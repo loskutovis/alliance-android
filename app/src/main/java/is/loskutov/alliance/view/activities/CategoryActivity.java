@@ -7,6 +7,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ public class CategoryActivity extends AppCompatActivity implements ApiResult {
     protected Button backButton;
     protected LinearLayout categoriesLayout;
     protected RecyclerView buttonsList;
+    protected ImageView loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,7 @@ public class CategoryActivity extends AppCompatActivity implements ApiResult {
         backButton = (Button) findViewById(R.id.back_button);
         categoriesLayout = (LinearLayout) findViewById(R.id.categories_layout);
         buttonsList = (RecyclerView) findViewById(R.id.buttons_list);
+        loading = (ImageView) findViewById(R.id.loading);
 
         Intent intent = getIntent();
         int type = intent.getIntExtra("type", Api.CATEGORIES);
@@ -58,6 +62,7 @@ public class CategoryActivity extends AppCompatActivity implements ApiResult {
                 ApiMethod<Void> method = new ApiMethod<>("getThemes");
 
                 api.execute(method);
+                loading.setVisibility(View.VISIBLE);
 
                 break;
         }
@@ -86,6 +91,7 @@ public class CategoryActivity extends AppCompatActivity implements ApiResult {
             buttons.add(new Category(theme.getId(), theme.getName(), Api.THEMES));
         }
 
+        loading.setVisibility(View.GONE);
         setButtonsList(buttons);
     }
 

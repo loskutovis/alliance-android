@@ -10,41 +10,56 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            style="@style/Header.h1"
-            android:id="@+id/theme" />
+        <ImageView
+            android:id="@+id/loading"
+            style="@style/Loading"
+            android:contentDescription="@string/loading" />
 
-        <TextView
-            style="@style/Header.TestingProgress"
-            android:id="@+id/number_of_questions" />
+        <LinearLayout
+            android:id="@+id/testing_container"
+            style="@style/TestingContainer">
 
-        <TextView
-            style="@style/Question"
-            android:id="@+id/question" />
+            <TextView
+                style="@style/Header.h1"
+                android:id="@+id/theme" />
 
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            <TextView
+                style="@style/Header.TestingProgress"
+                android:id="@+id/number_of_questions" />
 
-            <RadioButton
-                style="@style/RadioButton"
-                android:id="@+id/answer1"
-                android:checked="true" />
+            <TextView
+                style="@style/Question"
+                android:id="@+id/question" />
 
-            <RadioButton
-                style="@style/RadioButton"
-                android:id="@+id/answer2" />
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <RadioButton
-                style="@style/RadioButton"
-                android:id="@+id/answer3" />
+                <RadioButton
+                    style="@style/RadioButton"
+                    android:id="@+id/answer1"
+                    android:checked="true" />
 
-        </RadioGroup>
+                <RadioButton
+                    style="@style/RadioButton"
+                    android:id="@+id/answer2" />
 
-        <Button
-            android:id="@+id/next_button"
-            style="@style/Button.GreenButton.NextButton"
-            android:text="@string/submit"/>
+                <RadioButton
+                    style="@style/RadioButton"
+                    android:id="@+id/answer3" />
+
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/next_button"
+                style="@style/Button.GreenButton.NextButton"
+                android:text="@string/submit"/>
+
+            <Button
+                android:id="@+id/cancel_button"
+                style="@style/Button.CancelButton"
+                android:text="@string/cancel"/>
+        </LinearLayout>
 
     </LinearLayout>
 

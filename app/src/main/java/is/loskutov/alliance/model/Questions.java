@@ -9,7 +9,7 @@ import org.json.JSONObject;
 public class Questions implements Parcelable {
     private int id, number, rightAnswer, theme;
     private char category4, category5, category6;
-    private String question, answer1, answer2, answer3, category, userAnswer;
+    private String question, answer1, answer2, answer3, category, userAnswer = null;
 
     Questions(JSONObject question) throws JSONException {
         this.id = question.getInt("id");

@@ -4,8 +4,13 @@
     <string name="by_themes">По темам</string>
     <string name="back">Назад</string>
     <string name="submit">Продолжить</string>
+    <string name="loading">Загрузка&#8230;</string>
+    <string name="cancel">Закончить тестирование</string>
     <string name="start_again">Начать заново</string>
     <string name="of">из</string>
+    <string name="passed">ТЕСТ ПРОЙДЕН</string>
+    <string name="not_passed">ТЕСТ НЕ ПРОЙДЕН</string>
+    <string name="correct_answers">Правильных ответов:</string>
     <string-array name="categories">
         <item>4 разряд</item>
         <item>5 разряд</item>
