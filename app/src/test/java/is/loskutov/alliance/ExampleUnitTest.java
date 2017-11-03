@@ -1,6 +1,7 @@
 package is.loskutov.alliance;
 
 import org.junit.Test;
+import org.mockito.internal.matchers.Null;
 
 import static org.junit.Assert.*;
 

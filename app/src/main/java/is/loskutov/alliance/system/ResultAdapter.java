@@ -11,6 +11,8 @@ import android.widget.TextView;
 import is.loskutov.alliance.R;
 import is.loskutov.alliance.model.Questions;
 
+import static android.R.color.tertiary_text_dark;
+
 public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder> {
 
     private Context context;
@@ -66,9 +68,10 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
     private void highlightAnswer(TextView answer, int number, int rightAnswer, String userAnswer) {
         if (rightAnswer == number) {
             answer.setTextColor(ContextCompat.getColor(context, R.color.colorGreen));
-        }
-        else if (answer.getText().toString().contentEquals(userAnswer)) {
+        } else if (answer.getText().toString().contentEquals(userAnswer)) {
             answer.setTextColor(ContextCompat.getColor(context, R.color.colorRed));
+        } else {
+            answer.setTextColor(ContextCompat.getColor(context, tertiary_text_dark));
         }
     }
 }

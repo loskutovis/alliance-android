@@ -1,23 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/categories_layout"
     style="@style/Layout"
     tools:context=".view.activities.CategoryActivity">
 
-    <ImageView
-        android:id="@+id/loading"
-        style="@style/Loading"
-        android:contentDescription="@string/loading" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/buttons_list"
-        android:layout_width="@dimen/button_width"
+    <LinearLayout
+        android:id="@+id/categories_layout"
         android:layout_height="wrap_content"
-        android:scrollbars="vertical"/>
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/button_margin_bottom"
+        android:paddingBottom="@dimen/button_margin_bottom"
+        android:layout_gravity="center">
 
-    <Button
-        android:id="@+id/back_button"
-        style="@style/Button.GreenButton"
-        android:text="@string/back"/>
-</LinearLayout>
+        <ImageView
+            android:id="@+id/loading"
+            style="@style/Loading"
+            android:contentDescription="@string/loading" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/buttons_list"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:scrollbars="none" />
+
+        <Button
+            android:id="@+id/back_button"
+            style="@style/Button.GreenButton"
+            android:text="@string/back"/>
+
+    </LinearLayout>
+
+</ScrollView>

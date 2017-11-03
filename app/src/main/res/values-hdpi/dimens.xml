@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="button_width">240dp</dimen>
+    <dimen name="button_padding">5dp</dimen>
+    <dimen name="button_margin_bottom">15dp</dimen>
+    <dimen name="logo_width">120dp</dimen>
+    <dimen name="logo_height">115dp</dimen>
+    <dimen name="header_font_size">18sp</dimen>
+    <dimen name="description_font_size">16sp</dimen>
+    <dimen name="question_font_size">14sp</dimen>
+</resources>
