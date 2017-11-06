@@ -6,3 +6,6 @@
 /captures
 .externalNativeBuild
 /.idea/
+app/libs/
+app/release/
+app/src/main/java/is/loskutov/alliance/view/fragments/

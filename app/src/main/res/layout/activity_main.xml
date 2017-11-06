@@ -8,6 +8,14 @@
         style="@style/Logo"
         android:contentDescription="@string/app_name"/>
 
+    <TextView
+        style="@style/MainDescription"
+        android:text="@string/main_description"/>
+    <TextView
+        style="@style/MainDescription"
+        android:autoLink="phone"
+        android:text="@string/phone"/>
+
     <Button
         android:id="@+id/by_categories"
         style="@style/Button.DarkButton"
