@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "977151393281",
+    "firebase_url": "https://alliance-f9a97.firebaseio.com",
+    "project_id": "alliance-f9a97",
+    "storage_bucket": "alliance-f9a97.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:977151393281:android:73904d356105fa74",
+        "android_client_info": {
+          "package_name": "is.loskutov.alliance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "977151393281-afi9ts88mb2dda9ek3b9jk6a16q58l6f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCctFS-j0h4-lkQJe60ObfcBdG03cErOKk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
