@@ -122,16 +122,20 @@ public class TestingActivity extends AppCompatActivity implements ApiResult {
 
     @Override
     public void processFinish(ArrayList output) {
-        testing = (Testing) output.get(0);
-        amount = testing.getNumberOfQuestions();
-        questions = testing.getQuestions();
+        if (output != null) {
+            testing = (Testing) output.get(0);
+            amount = testing.getNumberOfQuestions();
+            questions = testing.getQuestions();
 
-        theme.setText(testing.getTheme());
+            theme.setText(testing.getTheme());
 
-        loading.setVisibility(View.GONE);
-        linearLayout.setVisibility(View.VISIBLE);
+            loading.setVisibility(View.GONE);
+            linearLayout.setVisibility(View.VISIBLE);
 
-        setQuestionFields(testingProgress);
+            setQuestionFields(testingProgress);
+        } else {
+            Api.showConnectionError(getApplicationContext());
+        }
     }
 
     public void setQuestionFields(int number) {

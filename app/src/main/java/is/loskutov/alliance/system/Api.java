@@ -1,6 +1,9 @@
 package is.loskutov.alliance.system;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -9,10 +12,13 @@ import org.json.JSONObject;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+import is.loskutov.alliance.R;
 import is.loskutov.alliance.model.ApiMethod;
 import is.loskutov.alliance.model.Category;
 import is.loskutov.alliance.model.Testing;
 import is.loskutov.alliance.model.Themes;
+import is.loskutov.alliance.view.activities.MainActivity;
+import is.loskutov.alliance.view.activities.ResultActivity;
 
 @SuppressWarnings (value = "unchecked")
 public class Api<T, Q> {
@@ -87,6 +93,16 @@ public class Api<T, Q> {
         Category category = new Category(0, type);
 
         return getTesting(category);
+    }
+
+    public static void showConnectionError(Context context) {
+        Toast toast = Toast.makeText(context, R.string.connection_warning, Toast.LENGTH_LONG);
+
+        toast.show();
+
+        Intent intent = new Intent(context, MainActivity.class);
+
+        context.startActivity(intent);
     }
 
     private class ApiTask extends AsyncTask<ApiMethod, Void, ArrayList> {

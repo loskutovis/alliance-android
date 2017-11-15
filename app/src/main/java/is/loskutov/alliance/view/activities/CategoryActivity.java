@@ -82,16 +82,20 @@ public class CategoryActivity extends AppCompatActivity implements ApiResult {
 
     @Override
     public void processFinish(ArrayList output) {
-        ArrayList<Category> buttons = new ArrayList<>();
+        if (output != null) {
+            ArrayList<Category> buttons = new ArrayList<>();
 
-        for (int i = 0; i < output.size(); i++) {
-            Themes theme = (Themes) output.get(i);
+            for (int i = 0; i < output.size(); i++) {
+                Themes theme = (Themes) output.get(i);
 
-            buttons.add(new Category(theme.getId(), theme.getName(), Api.THEMES));
+                buttons.add(new Category(theme.getId(), theme.getName(), Api.THEMES));
+            }
+
+            loading.setVisibility(View.GONE);
+            setButtonsList(buttons);
+        } else {
+            Api.showConnectionError(getApplicationContext());
         }
-
-        loading.setVisibility(View.GONE);
-        setButtonsList(buttons);
     }
 
     protected void setButtonsList(ArrayList buttons) {

@@ -11,6 +11,7 @@
     <string name="passed">ТЕСТ ПРОЙДЕН</string>
     <string name="not_passed">ТЕСТ НЕ ПРОЙДЕН</string>
     <string name="correct_answers">Правильных ответов:</string>
+    <string name="connection_warning">Не удалось получить данные. Проверьте подключение к интернету</string>
     <string-array name="categories">
         <item>4 разряд</item>
         <item>5 разряд</item>
